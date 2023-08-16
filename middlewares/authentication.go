@@ -3,8 +3,8 @@ package middlewares
 import (
 	"net/http"
 
+	"github.com/aryansh13/go_restapi_gin/helpers"
 	"github.com/gin-gonic/gin"
-	"github.com/temmy-alex/final-assignment/helpers"
 )
 
 func Authentication() gin.HandlerFunc {

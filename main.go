@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/temmy-alex/final-assignment/database"
-	"github.com/temmy-alex/final-assignment/router"
+	"github.com/aryansh13/go_restapi_gin/database"
+	"github.com/aryansh13/go_restapi_gin/router"
 )
 
 func main() {

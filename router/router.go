@@ -1,9 +1,9 @@
 package router
 
 import (
+	"github.com/aryansh13/go_restapi_gin/controllers"
+	"github.com/aryansh13/go_restapi_gin/middlewares"
 	"github.com/gin-gonic/gin"
-	"github.com/temmy-alex/final-assignment/controllers"
-	"github.com/temmy-alex/final-assignment/middlewares"
 )
 
 func StartApp() *gin.Engine {
