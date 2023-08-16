@@ -1,31 +1,30 @@
 package router
 
 import (
-	"go_restapi_gin/controllers"
-
 	"github.com/gin-gonic/gin"
+	"github.com/temmy-alex/final-assignment/controllers"
+	"github.com/temmy-alex/final-assignment/middlewares"
 )
 
-func SetupRouter() *gin.Engine {
+func StartApp() *gin.Engine {
 	r := gin.Default()
 
-	// User Routes
-	userGroup := r.Group("/users")
+	userRouter := r.Group("/users")
 	{
-		userGroup.POST("/register", controllers.RegisterUser)
-		userGroup.POST("/login", controllers.LoginUser)
-		userGroup.GET("/:userId", controllers.GetUserByID)
-		userGroup.PUT("/:userId", controllers.UpdateUserByID)
-		userGroup.DELETE("/:userId", controllers.DeleteUserByID)
+		userRouter.POST("/register", controllers.UserRegister)
+		userRouter.POST("/login", controllers.UserLogin)
+		userRouter.PUT("/:userId", controllers.UserUpdate)
+		userRouter.DELETE("/:userId", controllers.UserDelete)
 	}
 
-	// Photo Routes
-	photoGroup := r.Group("/photos")
+	photoRouter := r.Group("/photos")
 	{
-		photoGroup.POST("/", controllers.UploadPhoto)
-		photoGroup.GET("/", controllers.GetPhotos)
-		photoGroup.PUT("/:photoId", controllers.UpdatePhotoByID)
-		photoGroup.DELETE("/:photoId", controllers.DeletePhotoByID)
+		photoRouter.Use(middlewares.Authentication())
+
+		photoRouter.POST("/", controllers.CreatePhoto)
+		photoRouter.GET("/", controllers.ListPhoto)
+		photoRouter.PUT("/:photoId", middlewares.PhotoAuthorization(), controllers.UpdatePhoto)
+		photoRouter.DELETE("/:photoId", middlewares.PhotoAuthorization(), controllers.DeletePhoto)
 	}
 
 	return r
